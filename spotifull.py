@@ -25,7 +25,7 @@ async def on_ready():
 async def on_message(message):
     if message.content == "cum":
         await message.channel.send("it works")
-    if message.content[:31] == "https://open.spotify.com/track/":
+    if "https://open.spotify.com/track" in message.content:
         results = sp.track(urlparse(message.content).path[7:])
         videosSearch = VideosSearch(
             results["album"]["artists"][0]["name"] + " " + results["name"], limit=1)
