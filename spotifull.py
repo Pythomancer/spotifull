@@ -1,16 +1,24 @@
 import os
-import discord
-import spotipy
-from youtubesearchpython import VideosSearch
 from urllib.parse import urlparse
+
+import discord
+
+import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
+
+from youtubesearchpython import VideosSearch
+
 
 spotifyclientid = os.environ["CLIENT_ID"]
 spotifysecret = os.environ["CLIENT_SECRET"]
 
+auth_manager = SpotifyClientCredentials(
+    client_id = os.environ["CLIENT_ID"],
+    client_secret = os.environ["CLIENT_SECRET"]
+)
+
 bot = discord.Client()
-sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=spotifyclientid,
-                                                           client_secret=spotifysecret))
+sp = spotipy.Spotify(auth_manager=auth_manager)
 
 
 @bot.event
