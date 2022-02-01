@@ -1,24 +1,31 @@
-import discord
-import spotipy
-from youtubesearchpython import VideosSearch
+import os
 from urllib.parse import urlparse
+
+import discord
+
+import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
-spotifyclientid = "spotifyclientidtoken"
-spotifysecret = "spotifyclientsecret"
+from youtubesearchpython import VideosSearch
+
+
+spotifyclientid = os.environ["CLIENT_ID"]
+spotifysecret = os.environ["CLIENT_SECRET"]
+
+auth_manager = SpotifyClientCredentials(
+    client_id = os.environ["CLIENT_ID"],
+    client_secret = os.environ["CLIENT_SECRET"]
+)
 
 bot = discord.Client()
-sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=spotifyclientid,
-                                                           client_secret=spotifysecret))
+sp = spotipy.Spotify(auth_manager=auth_manager)
 
 
 @bot.event
 async def on_ready():
-    guild_count = 0
     for guild in bot.guilds:
         print(f"- {guild.id} (name: {guild.name})")
-        guild_count = guild_count + 1
-    print("spotifull is in " + str(guild_count) + " guilds.")
+    print(f"spotifull is in {len(bot.guilds)} guilds.")
 
 
 @bot.event
@@ -31,4 +38,4 @@ async def on_message(message):
             results["album"]["artists"][0]["name"] + " " + results["name"], limit=1)
         await message.reply(videosSearch.result()["result"][0]["link"])
 
-bot.run("discordtoken")
+bot.run(os.environ["TOKEN"])
