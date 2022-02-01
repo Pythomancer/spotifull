@@ -14,11 +14,9 @@ sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=spotifyclie
 
 @bot.event
 async def on_ready():
-    guild_count = 0
     for guild in bot.guilds:
         print(f"- {guild.id} (name: {guild.name})")
-        guild_count = guild_count + 1
-    print("spotifull is in " + str(guild_count) + " guilds.")
+    print(f"spotifull is in {len(bot.guilds)} guilds.")
 
 
 @bot.event
