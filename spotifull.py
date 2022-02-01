@@ -1,11 +1,12 @@
+import os
 import discord
 import spotipy
 from youtubesearchpython import VideosSearch
 from urllib.parse import urlparse
 from spotipy.oauth2 import SpotifyClientCredentials
 
-spotifyclientid = "spotifyclientidtoken"
-spotifysecret = "spotifyclientsecret"
+spotifyclientid = os.environ["CLIENT_ID"]
+spotifysecret = os.environ["CLIENT_SECRET"]
 
 bot = discord.Client()
 sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=spotifyclientid,
@@ -29,4 +30,4 @@ async def on_message(message):
             results["album"]["artists"][0]["name"] + " " + results["name"], limit=1)
         await message.reply(videosSearch.result()["result"][0]["link"])
 
-bot.run("discordtoken")
+bot.run(os.environ["TOKEN"])
