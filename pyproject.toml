@@ -9,6 +9,7 @@ python = "^3.8"
 "discord.py" = "^1.7.3"
 spotipy = "^2.19.0"
 youtube-search-python = "^1.6.2"
+lxml = "^4.7.1"
 
 [tool.poetry.dev-dependencies]
 
